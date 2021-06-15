@@ -1,4 +1,5 @@
 import PixaApiService from './apiService';
+import galleryCardTpl from '../partials/photo-card.hbs';
 
 const searchForm = document.querySelector('#search-form');
 const articlesContainer = document.querySelector('.gallery');
@@ -15,9 +16,13 @@ function onSearch(e) {
 
   pixaApiService.query = e.currentTarget.elements.query.value;
   pixaApiService.resetPage();
-  pixaApiService.fetchImages();
+  pixaApiService.fetchImages().then(appendImgsMarkup);
 }
 
 function onLoadMore() {
-  pixaApiService.fetchImages();
+  pixaApiService.fetchImages().then(appendImgsMarkup);
+}
+
+function appendImgsMarkup(hits) {
+  articlesContainer.insertAdjacentHTML('beforeend', galleryCardTpl(hits));
 }
