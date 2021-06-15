@@ -15,9 +15,9 @@ function onSearch(e) {
 
   pixaApiService.query = e.currentTarget.elements.query.value;
   pixaApiService.resetPage();
-  pixaApiService.fetchImages(searchQuery);
+  pixaApiService.fetchImages();
 }
 
 function onLoadMore() {
-  pixaApiService.fetchImages(searchQuery);
+  pixaApiService.fetchImages();
 }

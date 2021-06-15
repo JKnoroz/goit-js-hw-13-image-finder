@@ -9,16 +9,8 @@ export default class PixaApiService {
 
   fetchImages() {
     console.log(this);
-    const searchOptions = new URLSearchOpts({
-      image_type: 'photo',
-      orientation: 'horizontal',
-      q: this.searchQuery,
-      page: this.page,
-      per_page: 12,
-      key: API_KEY,
-    });
 
-    const url = `${BASE_URL}/?${searchOptions}`;
+    const url = `${BASE_URL}/?image_type=photo&orientation=horizontal&q=${this.searchQuery}&page=${this.page}&per_page=12&key=${API_KEY}`;
 
     fetch(url)
       .then(r => r.json())
