@@ -1,3 +1,5 @@
+import { addSeparatorySpaces } from './digits';
+
 const BASE_URL = 'https://pixabay.com/api/';
 const API_KEY = '22088587-b9222ac51e20698a54a4430fc';
 
@@ -14,12 +16,22 @@ export default class PixaApiService {
 
     return fetch(url)
       .then(r => r.json())
-      .then(data => {
-        console.log(data);
+      .then(({ hits }) => {
         this.page += 1;
-
-        return data.hits;
-      });
+        console.log(hits);
+        return hits;
+      })
+      .then(hits =>
+        hits.map(({ likes, views, comments, downloads, ...rest }) => {
+          return {
+            ...rest,
+            likes: addSeparatorySpaces(likes),
+            views: addSeparatorySpaces(views),
+            comments: addSeparatorySpaces(comments),
+            downloads: addSeparatorySpaces(downloads),
+          };
+        }),
+      );
   }
 
   resetPage() {
