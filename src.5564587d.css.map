@@ -1,1 +1,0 @@
-{"version":3,"sources":["sass/_form.scss"],"names":[],"mappings":"AAAA,aACE,eAAA,CACA,gBAAA,CACA,iBAAA,CACA,YAEA,mBACE,cAAA,CACA","file":"src.5564587d.css","sourceRoot":"../src","sourcesContent":[".search-form {\n  margin-top: 30px;\n  margin-left: auto;\n  margin-right: auto;\n  width: 800px;\n\n  input {\n    font-size: 20px;\n    padding: 10px;\n  }\n}\n"]}
