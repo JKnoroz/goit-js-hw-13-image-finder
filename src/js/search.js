@@ -16,7 +16,7 @@ const pixaApiService = new PixaApiService();
 console.log(loadMoreBtn);
 
 searchForm.addEventListener('submit', onSearch);
-loadMoreBtn.refs.button.addEventListener('click', onLoadMore);
+loadMoreBtn.refs.button.addEventListener('click', fetchImgsAndBtn);
 
 function onSearch(e) {
   e.preventDefault();
@@ -28,18 +28,17 @@ function onSearch(e) {
   }
 
   loadMoreBtn.show();
-  loadMoreBtn.disable();
-
   pixaApiService.resetPage();
+  clearImgsContainer();
+  fetchImgsAndBtn();
+}
+
+function fetchImgsAndBtn() {
+  loadMoreBtn.disable();
   pixaApiService.fetchImages().then(hits => {
-    clearImgsContainer();
     appendImgsMarkup(hits);
     loadMoreBtn.enable();
   });
-}
-
-function onLoadMore() {
-  pixaApiService.fetchImages().then(appendImgsMarkup);
 }
 
 function appendImgsMarkup(hits) {
