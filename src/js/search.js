@@ -4,6 +4,8 @@ import LoadMoreBtn from './load-more-btn';
 
 const searchForm = document.querySelector('#search-form');
 const imgsContainer = document.querySelector('.gallery');
+const scrollPoint = document.getElementById('#scroll');
+console.log(scrollPoint);
 // const loadMoreBtn = document.querySelector('[data-action="load-more');
 
 const loadMoreBtn = new LoadMoreBtn({
@@ -38,6 +40,7 @@ function fetchImgsAndBtn() {
   pixaApiService.fetchImages().then(hits => {
     appendImgsMarkup(hits);
     loadMoreBtn.enable();
+    scroll();
   });
 }
 
@@ -47,4 +50,11 @@ function appendImgsMarkup(hits) {
 
 function clearImgsContainer() {
   imgsContainer.innerHTML = '';
+}
+
+function scroll() {
+  scrollPoint.scrollIntoView({
+    behavior: 'smooth',
+    block: 'end',
+  });
 }
