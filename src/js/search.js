@@ -1,6 +1,7 @@
 import PixaApiService from './apiService';
 import galleryCardTpl from '../partials/photo-card.hbs';
 import LoadMoreBtn from './load-more-btn';
+import notifications from './notifications';
 
 const searchForm = document.querySelector('#search-form');
 const imgsContainer = document.querySelector('.gallery');
@@ -26,7 +27,7 @@ function onSearch(e) {
   pixaApiService.query = e.currentTarget.elements.query.value;
 
   if (pixaApiService.query === '') {
-    return console.log('NO');
+    notifications.notFound();
   }
 
   loadMoreBtn.show();
@@ -40,6 +41,7 @@ function fetchImgsAndBtn() {
   pixaApiService.fetchImages().then(hits => {
     appendImgsMarkup(hits);
     loadMoreBtn.enable();
+    notifications.onSuccess();
     scroll();
   });
 }
