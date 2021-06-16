@@ -32,6 +32,10 @@
 
   border: none;
   cursor: pointer;
+
+  &.is-hidden {
+    display: none;
+  }
 }
 
 .loadmore {

@@ -1,20 +1,25 @@
 import PixaApiService from './apiService';
 import galleryCardTpl from '../partials/photo-card.hbs';
+import LoadMoreBtn from './load-more-btn';
 
 const searchForm = document.querySelector('#search-form');
 const imgsContainer = document.querySelector('.gallery');
-const loadMoreBtn = document.querySelector('[data-action="load-more');
-console.log(loadMoreBtn);
+// const loadMoreBtn = document.querySelector('[data-action="load-more');
+
+const loadMoreBtn = new LoadMoreBtn({
+  selector: '[data-action="load-more"]',
+  hidden: true,
+});
 
 const pixaApiService = new PixaApiService();
 
+console.log(loadMoreBtn);
+
 searchForm.addEventListener('submit', onSearch);
-loadMoreBtn.addEventListener('click', onLoadMore);
+loadMoreBtn.refs.button.addEventListener('click', onLoadMore);
 
 function onSearch(e) {
   e.preventDefault();
-
-  clearImgsContainer();
 
   pixaApiService.query = e.currentTarget.elements.query.value;
 
@@ -22,8 +27,15 @@ function onSearch(e) {
     return console.log('NO');
   }
 
+  loadMoreBtn.show();
+  loadMoreBtn.disable();
+
   pixaApiService.resetPage();
-  pixaApiService.fetchImages().then(appendImgsMarkup);
+  pixaApiService.fetchImages().then(hits => {
+    clearImgsContainer();
+    appendImgsMarkup(hits);
+    loadMoreBtn.enable();
+  });
 }
 
 function onLoadMore() {

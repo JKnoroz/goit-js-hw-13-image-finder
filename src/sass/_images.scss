@@ -34,6 +34,11 @@ ul {
 
   overflow: hidden;
   cursor: pointer;
+
+  &:hover,
+  &:focus {
+    border-color: #1aa79b;
+  }
 }
 
 img {

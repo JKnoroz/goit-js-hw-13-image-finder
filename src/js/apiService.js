@@ -15,9 +15,9 @@ export default class PixaApiService {
     const url = `${BASE_URL}/?image_type=photo&orientation=horizontal&q=${this.searchQuery}&page=${this.page}&per_page=12&key=${API_KEY}`;
 
     return fetch(url)
-      .then(r => r.json())
+      .then(response => response.json())
       .then(({ hits }) => {
-        this.page += 1;
+        this.plusPage();
         console.log(hits);
         return hits;
       })
@@ -32,6 +32,10 @@ export default class PixaApiService {
           };
         }),
       );
+  }
+
+  plusPage() {
+    this.page += 1;
   }
 
   resetPage() {
