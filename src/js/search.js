@@ -78,5 +78,5 @@ function scroll() {
     block: 'end',
   });
 
-  window.scrollBy(0, 480);
+  // window.scrollBy(0, 480);
 }
