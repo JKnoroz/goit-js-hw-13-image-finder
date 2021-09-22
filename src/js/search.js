@@ -6,8 +6,6 @@ import notifications from './notifications';
 const searchForm = document.querySelector('#search-form');
 const imgsContainer = document.querySelector('.gallery');
 const scrollPoint = document.getElementById('#scroll');
-console.log(scrollPoint);
-// const loadMoreBtn = document.querySelector('[data-action="load-more');
 
 const loadMoreBtn = new LoadMoreBtn({
   selector: '[data-action="load-more"]',
@@ -23,22 +21,42 @@ loadMoreBtn.refs.button.addEventListener('click', fetchImgsAndBtn);
 
 function onSearch(e) {
   e.preventDefault();
-
+  clearImgsContainer();
+  loadMoreBtn.hide();
   pixaApiService.query = e.currentTarget.elements.query.value;
 
-  if (pixaApiService.query === '') {
-    notifications.notFound();
+  if (!pixaApiService.query) {
+    return;
+  }
+
+  if (pixaApiService.query.trim() === '') {
+    return notifications.notFound();
   }
 
   loadMoreBtn.show();
   pixaApiService.resetPage();
-  clearImgsContainer();
+
   fetchImgsAndBtn();
+
+  e.currentTarget.elements.query.value = '';
 }
 
 function fetchImgsAndBtn() {
   loadMoreBtn.disable();
+  loadMoreBtn.removeEnd();
+
   pixaApiService.fetchImages().then(hits => {
+    if (hits.length === 0) {
+      loadMoreBtn.hide();
+      return notifications.myError();
+    }
+
+    if (hits.length < 12) {
+      loadMoreBtn.showEnd();
+      appendImgsMarkup(hits);
+      return;
+    }
+
     appendImgsMarkup(hits);
     loadMoreBtn.enable();
     notifications.onSuccess();
@@ -59,4 +77,6 @@ function scroll() {
     behavior: 'smooth',
     block: 'end',
   });
+
+  window.scrollBy(0, 480);
 }

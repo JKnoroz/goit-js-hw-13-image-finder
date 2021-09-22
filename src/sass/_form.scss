@@ -36,6 +36,10 @@
   &.is-hidden {
     display: none;
   }
+
+  &.end {
+    color: coral;
+  }
 }
 
 .loadmore {

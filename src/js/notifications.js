@@ -13,7 +13,7 @@ function notFound() {
   defaultStack.close();
   error({
     title: 'Ooops!',
-    text: 'No such country',
+    text: 'No pictures found! Try another request',
     delay: 2000,
   });
 }
@@ -23,7 +23,7 @@ function myError() {
   error({
     title: 'Oh no',
     text: 'Something went wrong',
-    delay: 10000,
+    delay: 5000,
   });
 }
 

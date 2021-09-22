@@ -32,4 +32,16 @@ export default class LoadMoreBtn {
   hide() {
     this.refs.button.classList.add('is-hidden');
   }
+
+  showEnd() {
+    this.refs.button.disabled = true;
+    this.refs.button.classList.remove('is-hidden');
+    this.refs.button.classList.add('end');
+    this.refs.label.textContent = 'No more pictures';
+    this.refs.spinner.classList.add('is-hidden');
+  }
+
+  removeEnd() {
+    this.refs.button.classList.remove('end');
+  }
 }
