@@ -26,7 +26,7 @@ function onSearch(e) {
   pixaApiService.query = e.currentTarget.elements.query.value;
 
   if (!pixaApiService.query) {
-    return;
+    return notifications.notFound();
   }
 
   if (pixaApiService.query.trim() === '') {
